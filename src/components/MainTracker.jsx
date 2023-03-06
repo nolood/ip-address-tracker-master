@@ -16,13 +16,14 @@ const MainTracker = ({setlatLongTude}) => {
     window.location.reload();
   }
 
-  const ipAddress = JSON.parse(localStorage.getItem('current-data')).ip || '0.0.0.0';  
-  const location = JSON.parse(localStorage.getItem('current-data')).city + ', ' + JSON.parse(localStorage.getItem('current-data')).zipcode || 'City, postalcode';
-  const offset = JSON.parse(localStorage.getItem('current-data')).time_zone.offset || 0;
+  const currentData = JSON.parse(localStorage.getItem('current-data')) || {}; 
+  const ipAddress = currentData.ip || '0.0.0.0';  
+  const location = (currentData.city || 'City') + ', ' + (currentData.zipcode || 'postalcode');
+  const offset = currentData.time_zone?.offset || 0;
+  const isp = currentData.isp || 'ISP';
   const hours = Math.abs(Math.floor(offset));
   const minutes = Math.abs(Math.floor((offset % 1) * 60)).toString().padStart(2, "0");
   const utc = `UTC${offset < 0 ? '-' : '+'}${hours.toString().padStart(2, "0")}:${minutes}`;
-  const isp = JSON.parse(localStorage.getItem('current-data')).isp || 'ISP'; 
   const [currentIp, setCurrentIp] = useState('');
   const latitude = JSON.parse(localStorage.getItem('current-data')).latitude;
   const longtitude = JSON.parse(localStorage.getItem('current-data')).longitude;
