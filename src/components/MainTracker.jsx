@@ -25,8 +25,8 @@ const MainTracker = ({setlatLongTude}) => {
   const minutes = Math.abs(Math.floor((offset % 1) * 60)).toString().padStart(2, "0");
   const utc = `UTC${offset < 0 ? '-' : '+'}${hours.toString().padStart(2, "0")}:${minutes}`;
   const [currentIp, setCurrentIp] = useState('');
-  const latitude = JSON.parse(localStorage.getItem('current-data')).latitude;
-  const longtitude = JSON.parse(localStorage.getItem('current-data')).longitude;
+  const latitude = currentData.latitude || 51.508530;
+  const longtitude = currentData.longitude || -0.076132;
   
   useEffect(() => {
     setlatLongTude([latitude, longtitude])
